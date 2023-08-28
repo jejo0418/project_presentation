@@ -1,0 +1,36 @@
+import requests
+import json
+import base64
+import cv2
+import matplotlib.pyplot as plt
+
+def face_detect(img_path):
+    http_url = 'https://api-cn.faceplusplus.com/facepp/v3/detect'
+    data = {"api_key": 'xo87FRq-A2JSd0OEjCm-ayclcIShyiI1',
+            "api_secret": 'Qe8K8p8RAJ57b13TtzXKaeiHPOyUyyzq',
+            "return_attributes": 'age,gender,beauty',
+            "return_landmark": 1
+            }
+    files = {"image_file": open(img_path, "rb")}
+    response = requests.post(http_url, data=data, files=files)
+    print(response.text)
+    data = json.loads(response.text)
+
+    img = cv2.imread(img_path)
+    face_rectangle = data['faces'][0]['face_rectangle']
+    x = face_rectangle['left']
+    y = face_rectangle['top']
+    w = face_rectangle['width']
+    h = face_rectangle['height']
+    img = cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
+    attr = data['faces'][0]['attributes']
+    age = attr['age']['value']
+    gender = attr['gender']['value']
+    beauty = (attr['beauty']['female_score']+attr['beauty']['male_score'])//2
+    text = "{0},{1},score{2}".format(age,gender,beauty)
+    cv2.putText(img, text, (x-30, y-20), cv2.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (255, 0, 0), 2)
+    cv2.imshow('image', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+face_detect('C:/Users/hp/Pictures/Camera Roll/jessica/61.JPG')

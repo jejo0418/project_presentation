@@ -1,0 +1,5 @@
+import cv2
+path = cv2.imread('C:/Users/hp/Pictures/Camera Roll/jessica/26.jpg')
+cv2.imshow('image', path)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
