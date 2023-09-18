@@ -42,7 +42,7 @@ def person_beauty(img_path):
 
 
 if __name__ == "__main__":
-    b = card_recognition('G:/python project/project_practice/bank_card/3.jpg')
+    b = card_recognition('bank_card/3.jpg')
     img = faces[b]
     name = informations[img][0]
     person_number = informations[img][1]

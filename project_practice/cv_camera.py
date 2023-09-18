@@ -12,8 +12,8 @@ class PyQtMainEntry(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.filename = 'G:/python project/project_practice/result/1.jpg'
-        self.filename2 = 'G:/python project/project_practice/result/2.jpg'
+        self.filename = 'result/1.jpg'
+        self.filename2 = 'result/2.jpg'
         self.camera = cv2.VideoCapture(0,cv2.CAP_DSHOW)
         self.is_camera_opened = False  # 摄像头有没有打开标记
 
